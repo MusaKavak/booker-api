@@ -1,0 +1,17 @@
+version: '3'
+services:
+  redis:
+    network_mode: bridge
+    container_name: redis
+    image: redis:7.0.7-alpine
+    restart: unless-stopped
+    expose:
+      - 6379
+  api:
+    network_mode: bridge
+    container_name: api
+    build: .
+    ports:
+      - 5000:5000
+    links:
+      - redis
